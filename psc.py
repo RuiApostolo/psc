@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 from collections import Counter
-import sys,argparse
+import argparse
 
 # Proline       P = 0
 # Aspartic Acid D = 2
