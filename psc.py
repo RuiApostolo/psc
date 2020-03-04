@@ -54,13 +54,14 @@ values = {'A': 1,
 # Define arguments from command line, and generate help text
 parser = argparse.ArgumentParser(description='Calculate the number of side chains in a protein from a fasta file.')
 parser.add_argument('inputfile', metavar='fasta_file', type=str, help='Path to the input fasta file.')
-# parser.add_argument('--output', '-o', help='Name for output file.', default='Nsidechains.txt')
+parser.add_argument('--output', '-o', help='Name for output file.', default='Nsidechains.txt')
 # Parse arguments
 args = parser.parse_args()
 # Create empty counter
 c = Counter()
 # open file
 f = open(args.inputfile, 'r')
+o = open(args.output, 'w+')
 # Separate file into lines
 lines = iter(f)
 # Skip first line
@@ -74,9 +75,12 @@ c['\n'] = 0
 c += Counter()
 # Print frequency list
 print("Frequency list:")
+o.write("Frequency list:")
 for i in alphabet:
     print(i, c[i])
+    o.write(i, c[i])
 print('')
+o.write('')
 
 # Check for items not in accepted list and print them
 b = True
@@ -84,13 +88,17 @@ for i, j in c.items():
     if i not in alphabet:
         if b is True:
             print("Wrong symbols list:")
+            o.write("Wrong symbols list:")
             print('')
+            o.write('')
             b = False
         print(i, c[i])
+        o.write(i, c[i])
 
 # Extra empy line if wrong symbols are present
 if b is False:
     print('')
+    o.write('')
 
 # Sum amount of possible side-chains
 t = 0
@@ -98,8 +106,13 @@ for i, j in c.items():
     if i is 'X':
         # Print special cases (X - any AA)
         print('Special case, X can be anything. Counts of X = ', c[i])
+        o.write('Special case, X can be anything. Counts of X = ', c[i])
         print('')
-    t += c[i] * values[i]
+        o.write('')
+    if i in alphabet:
+        t += c[i] * values[i]
 
 print('Total number of possible side-chains is: ', t)
+o.write('Total number of possible side-chains is: ', t)
 print('')
+o.write('')
