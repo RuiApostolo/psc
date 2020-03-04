@@ -7,5 +7,7 @@ The symbols for translation stop (*) and gap (-) are ignored (assumed zero side-
 
 Requires the modules 'Counter' and 'argparse' that come by default with any dev-python distribution.
 If missing, try:
+
 '$ pip install argparse --user'
+
 '$ pip install Counter --user'
