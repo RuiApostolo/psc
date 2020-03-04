@@ -74,13 +74,13 @@ c['\n'] = 0
 # Delete empty key-item pairs (carriage return)
 c += Counter()
 # Print frequency list
-print("Frequency list:")
-o.write("Frequency list:")
+print('Frequency list:')
+print('Frequency list:', file=o)
 for i in alphabet:
     print(i, c[i])
-    o.write(i, c[i])
+    print(i, c[i], file=o)
 print('')
-o.write('')
+print('', file=o)
 
 # Check for items not in accepted list and print them
 b = True
@@ -88,17 +88,17 @@ for i, j in c.items():
     if i not in alphabet:
         if b is True:
             print("Wrong symbols list:")
-            o.write("Wrong symbols list:")
+            print("Wrong symbols list:", file=o)
             print('')
-            o.write('')
+            print('', file=o)
             b = False
         print(i, c[i])
-        o.write(i, c[i])
+        print(i, c[i], file=o)
 
 # Extra empy line if wrong symbols are present
 if b is False:
     print('')
-    o.write('')
+    print('', file=o)
 
 # Sum amount of possible side-chains
 t = 0
@@ -106,13 +106,16 @@ for i, j in c.items():
     if i is 'X':
         # Print special cases (X - any AA)
         print('Special case, X can be anything. Counts of X = ', c[i])
-        o.write('Special case, X can be anything. Counts of X = ', c[i])
+        print('Special case, X can be anything. Counts of X = ', c[i], file=o)
         print('')
-        o.write('')
+        print('', file=o)
     if i in alphabet:
         t += c[i] * values[i]
 
 print('Total number of possible side-chains is: ', t)
-o.write('Total number of possible side-chains is: ', t)
+print('Total number of possible side-chains is: ', t, file=o)
 print('')
-o.write('')
+print('', file=o)
+
+f.close()
+o.close()
